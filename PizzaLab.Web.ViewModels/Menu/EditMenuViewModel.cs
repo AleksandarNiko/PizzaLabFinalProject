@@ -1,7 +1,7 @@
 ﻿namespace PizzaLab.Web.ViewModels.Menu
 {
     using System.ComponentModel.DataAnnotations;
-    using PizzaRestaurant.Web.ViewModels.Pizza;
+    using PizzaLab.Web.ViewModels.Pizza;
 
     using static PizzaLab.Common.EntityValidationsConstants.Menu;
 
