@@ -1,10 +1,10 @@
-﻿namespace PizzaLab.Web.Infrastructures.Middlewares
+﻿namespace PizzaLab.Web.Infrastructure.Middlewares
 {
     using System.Collections.Concurrent;
 
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Caching.Memory;
-    using PizzaLab.Web.Infrastructures.Extentions;
+    using PizzaLab.Web.Infrastructure.Extentions;
 
     using static Common.GeneralApplicationConstants;
 
