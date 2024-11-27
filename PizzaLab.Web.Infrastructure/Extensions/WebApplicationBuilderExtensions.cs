@@ -1,4 +1,4 @@
-﻿namespace HouseRentingSystem.Web.Infrastructure.Extensions
+﻿namespace PizzaLab.Web.Infrastructure.Extensions
 {
     using System.Reflection;
     using Microsoft.AspNetCore.Builder;
@@ -6,7 +6,7 @@
     using Microsoft.Extensions.DependencyInjection;
 
     using PizzaLab.Data.Models;
-    using PizzaLab.Web.Infrastructures.Middlewares;
+    using PizzaLab.Web.Infrastructure.Middlewares;
 
     using static PizzaLab.Common.GeneralApplicationConstants;
 
