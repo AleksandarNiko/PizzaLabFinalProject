@@ -1,0 +1,27 @@
+﻿@model IEnumerable<ProductsForPizzaViewModel>
+@{
+    ViewBag.Title = "Remove product";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="text-center row d-flex justify-content-center">
+    @foreach (var product in Model)
+    {
+        <div class="mb-2">
+            <div class="row justify-content-end">
+                <div class="col-md-6 justify-content-end">
+                    <h4>@product.Name</h4>
+                </div>
+                <div class="col-md-6 d-flex justify-content-start">
+                    <a asp-controller="Product" asp-action="RemoveProduct" asp-route-productId="@product.Id" class="btn btn-danger btn-sm">Remove product</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="text-center mt-3">
+    <a asp-controller="Product" asp-action="Options" class="btn btn-primary">Back to product options</a>
+</div>

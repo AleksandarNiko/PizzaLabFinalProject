@@ -1,0 +1,28 @@
+﻿@model IEnumerable<ToppingForPizzaVIewModel>
+@{
+    ViewBag.Title = "Remove topping";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="text-center row d-flex justify-content-center">
+    @foreach (var topping in Model)
+    {
+        <div class="mb-2">
+            <div class="row justify-content-end">
+                <div class="col-md-6 justify-content-end">
+                    <h4>@topping.Name</h4>
+                </div>
+
+                <div class="col-md-6 d-flex justify-content-start">
+                    <a asp-controller="Topping" asp-action="RemoveTopping" asp-route-toppingId="@topping.Id" class="btn btn-danger btn-sm">Remove topping</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="text-center mt-3">
+    <a asp-controller="Product" asp-action="Options" class="btn btn-primary">Back to topping options</a>
+</div>

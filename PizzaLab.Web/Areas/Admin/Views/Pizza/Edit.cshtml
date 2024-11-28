@@ -1,0 +1,59 @@
+﻿@model EditPizzaViewModel
+
+@{
+    ViewData["Title"] = $"{Model.Name} Edit";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<form method="post" asp-area="Admin" asp-action="Edit" asp-route-id="@Model.Id">
+    <div class="form-group">
+        <label for="Name">Name:</label>
+        <input type="text" class="form-control" id="Name" name="Name" value="@Model.Name" required>
+    </div>
+
+    <div class="form-group">
+        <label for="InitialPrice">Initial Price:</label>
+        <input class="form-control" id="InitialPrice" name="InitialPrice" value="@Model.InitialPrice" required>
+    </div>
+
+    <div class="form-group">
+        <label for="ImageUrl">Image URL:</label>
+        <input type="text" class="form-control" id="ImageUrl" name="ImageUrl" value="@Model.ImageUrl" required>
+    </div>
+
+    <div class="form-group">
+        <label for="Description">Description:</label>
+        <textarea class="form-control" id="Description" name="Description" required>@Model.Description</textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="SelectedDoughId">Dough:</label>
+        <select class="form-control" id="SelectedDoughId" name="DoughId" required>
+            @foreach (var dough in Model.Doughs)
+            {
+                <option value="@dough.Id" selected="@Equals(dough.Id, Model.DoughId)">@dough.Name</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Available Products:</label>
+        <br />
+        @foreach (var product in Model.AvailableProducts)
+        {
+            string isChecked = Model.ProductsId.Contains(product.Id) ? "checked" : "";
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="Product_@product.Id" name="ProductsId" value="@product.Id" @isChecked>
+                <label class="form-check-label" for="Product_@product.Id">@product.Name</label>
+            </div>
+        }
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update Pizza</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

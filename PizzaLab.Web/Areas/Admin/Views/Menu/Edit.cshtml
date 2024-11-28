@@ -1,0 +1,62 @@
+﻿@model EditMenuViewModel
+
+@{
+    ViewData["Title"] = $"Edit {Model.Name}";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <form asp-area="Admin" method="post">
+            <div class="form-group">
+                <div class="mb-3">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Description"></label>
+                    <input asp-for="Description" class="form-control">
+                </div>
+            </div>
+
+            @foreach (var pizza in Model.MenuPizzas)
+            {
+                <div class="mb-2">
+                    <div class="row align-items-center">
+                        <div class="col-md-3">
+                            <img src="@pizza.ImageUrl" alt="@pizza.Name" class="img-thumbnail">
+                        </div>
+                        <div class="col-md-6">
+                            <h4>@pizza.Name</h4>
+                            <p>@pizza.Description</p>
+                        </div>
+                        <div class="col-md-3 d-flex justify-content-center">
+                            <a asp-area="Admin" asp-controller="Menu" asp-action="RemovePizzaFromMenu" asp-route-menuId="@Model.Id" asp-route-pizzaId="@pizza.Id" class="btn btn-danger btn-sm">Remove</a>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div class="row m-0">
+                <div class="col-md-6">
+                    <a asp-area="" asp-controller="Menu" asp-action="All" class="btn btn-primary w-100">Back</a>
+                </div>
+                <div class="col-md-6">
+                    <input class="btn btn-danger w-100" type="submit" value="Save changes" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6 offset-md-3">
+        <a asp-controller="Menu" asp-action="AddPizzas" asp-route-menuId="@Model.Id" class="btn btn-success w-100">Add Pizzas</a>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

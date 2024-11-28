@@ -1,0 +1,21 @@
+﻿@model RemovePizzaFromMenuViewModel
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card mt-5">
+                <div class="card-body text-center">
+                    <h2 class="card-title">Remove Pizza from Menu</h2>
+                    <p class="card-text">Are you sure you want to remove <strong>@Model.PizzaName</strong> from the menu <strong>@Model.MenuName</strong>?</p>
+                    <form asp-area="Admin" method="post">
+                        <input type="hidden" asp-for="MenuId" />
+                        <input type="hidden" asp-for="PizzaId" />
+                        <div class="d-flex justify-content-center mt-4">
+                            <button type="submit" class="btn btn-danger">Remove</button>
+                            <a asp-area="Admin" asp-action="Edit" asp-route-id="@Model.MenuId" class="btn btn-primary ms-2">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,60 @@
+﻿@model IEnumerable<PizzasForMenuViewModel>
+
+@{
+    ViewBag.Title = "Add Pizzas";
+    int menuId = ViewBag.MenuId;
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+@if (Model.Any())
+{
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            @foreach (var pizza in Model)
+            {
+                <div class="card mb-3">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <img src="@pizza.ImageUrl" class="card-img" alt="@pizza.Name">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">@pizza.Name</h5>
+                                <p class="card-text">@pizza.Description</p>
+                                <p class="card-text">Dough: @pizza.DoughName</p>
+                                <p class="card-text">Price: $@pizza.InitialPrice</p>
+                                <form asp-area="Admin" asp-controller="Menu" asp-action="AddPizzaToMenu" method="post">
+                                    <input type="hidden" name="menuId" value="@menuId" />
+                                    <input type="hidden" name="pizzaId" value="@pizza.Id" />
+                                    <button type="submit" class="btn btn-success w-100">Add</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6 offset-md-3">
+            <a asp-controller="Menu" asp-action="Edit" asp-route-id="@menuId" class="btn btn-primary w-100">Back</a>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-6 offset-md-3 text-center">
+            <h3>There are no pizzas available to add.</h3>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6 offset-md-3">
+            <a asp-controller="Menu" asp-action="Edit" asp-route-id="@menuId" class="btn btn-primary w-100">Back</a>
+        </div>
+    </div>
+}

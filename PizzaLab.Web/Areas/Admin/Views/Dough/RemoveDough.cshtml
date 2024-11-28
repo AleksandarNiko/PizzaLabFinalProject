@@ -1,0 +1,20 @@
+﻿@model DoughViewModel
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card mt-5">
+                <div class="card-body text-center">
+                    <h2 class="card-title">Remove Product</h2>
+                    <p class="card-text">Are you sure you want to remove <strong>@Model.Name</strong>?</p>
+                    <form method="post">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="d-flex justify-content-evenly mt-4">
+                            <a asp-action="Remove" class="btn btn-primary ms-2">Cancel</a>
+                            <button type="submit" class="btn btn-danger">Remove</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
