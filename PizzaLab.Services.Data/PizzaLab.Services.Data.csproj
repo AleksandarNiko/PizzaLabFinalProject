@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PizzaLab.Data\PizzaLab.Data.csproj" />
+    <ProjectReference Include="..\PizzaLab.Services.Data.Models\PizzaLab.Services.Data.Models.csproj" />
+    <ProjectReference Include="..\PizzaLab.Web.Infrastructure\PizzaLab.Web.Infrastructure.csproj" />
+    <ProjectReference Include="..\PizzaLab.Web.ViewModels\PizzaLab.Web.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>
