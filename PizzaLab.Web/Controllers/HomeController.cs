@@ -1,11 +1,10 @@
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using PizzaLab.Web.Models;
-using System.Diagnostics;
-using static PizzaLab.Common.GeneralApplicationConstants;
-
 namespace PizzaLab.Web.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+
+    using static Common.GeneralApplicationConstants;
+
     public class HomeController : BaseController
     {
         [AllowAnonymous]
