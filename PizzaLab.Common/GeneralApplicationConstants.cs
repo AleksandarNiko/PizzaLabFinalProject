@@ -12,7 +12,7 @@ namespace PizzaLab.Common
 
         public const string AdminAreaName = "Admin";
         public const string AdminRoleName = "Administrator";
-        public const string DevelopmentAdminEmail = "admin@houserenting.bg";
+        public const string DevelopmentAdminEmail = "admin@pizzalab.bg";
 
 
         public const string OnlineUsersCookieName = "IsOnline";
