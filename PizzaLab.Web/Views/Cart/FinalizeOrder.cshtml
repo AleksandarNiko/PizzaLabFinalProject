@@ -1,0 +1,39 @@
+﻿@model ViewCartViewModel
+
+@{
+    ViewData["Title"] = "Cart";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model.Items)
+        {
+            <div class="col-md-12 mb-3">
+                <div class="card h-100 d-flex flex-column justify-content-between">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5 class="card-title">@item.PizzaName</h5>
+                            </div>
+                            <div class="col-md-3">
+                                <p class="card-text">Price: $@item.Price</p>
+                            </div>
+                            <div class="col-md-3 text-center">
+                                <a asp-area="" asp-controller="Cart" asp-action="RemoveFromCart" asp-route-cartId="@item.CartId" asp-route-pizzaId="@item.PizzaId" class="btn btn-danger">Remove</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="text-center mt-3">
+        <h4 class="mb-2">Final Price: $@Model.FinalPrize</h4>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Back to Home</a>
+        <a asp-controller="Order" asp-action="ConfirmOrder" class="btn btn-success ms-2">Make Order</a>
+    </div>
+</div>
