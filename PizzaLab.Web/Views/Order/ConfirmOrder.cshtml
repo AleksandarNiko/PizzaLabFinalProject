@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "Confirm order";
+}
+
+
+<div class="container mt-5 border p-4 mx-auto w-50">
+    <h2 class="mb-4">Do you confirm the order?</h2>
+    <div class="d-flex justify-content-between">
+        <a asp-area="" asp-controller="Cart" asp-action="FinalizeOrder" class="btn btn-primary">Back to Cart</a>
+        <a asp-area="" asp-controller="Order" asp-action="MakeOrder" class="btn btn-success">Order</a>
+    </div>
+</div>
