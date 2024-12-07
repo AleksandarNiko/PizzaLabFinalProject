@@ -1,16 +1,25 @@
 ﻿namespace PizzaLab.Services.Tests.IntegrationTests
 {
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
     using Moq;
     using NUnit.Framework.Legacy;
+    using PizzaLab.Data;
     using PizzaLab.Services.Data.Interfaces;
     using PizzaLab.Web.Areas.Admin.Controllers;
     using PizzaLab.Web.ViewModels.Dough;
 
     internal class DoughAdminControllerTests
     {
+
         private DoughController doughController;
         private Mock<IDoughService> doughServiceMock;
+
+        [TearDown]
+        public void Teardown()
+        {
+            doughController.Dispose();
+        }
 
         [SetUp]
         public void Setup()

@@ -19,6 +19,14 @@
 
         private IProductService productService;
 
+        [TearDown]
+        public async Task Teardown()
+        {
+            await dbContext.Database.EnsureDeletedAsync();
+            await dbContext.DisposeAsync();
+
+        }
+
         [SetUp]
         public void OneTimeSetUp()
         {

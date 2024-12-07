@@ -1,8 +1,10 @@
 ﻿namespace PizzaLab.Services.Tests.IntegrationTests
 {
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
     using Moq;
     using NUnit.Framework.Legacy;
+    using PizzaLab.Data;
     using PizzaLab.Services.Data.Interfaces;
     using PizzaLab.Web.Controllers;
     using PizzaLab.Web.ViewModels.Menu;
@@ -14,6 +16,12 @@
         private MenuController controller;
         private Mock<IMenuService> mockMenuService;
         private Mock<IPizzaService> mockPizzaService;
+
+        [TearDown]
+        public void Teardown()
+        {
+            controller.Dispose();
+        }
 
         [SetUp]
         public void Setup()

@@ -1,25 +1,34 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.0" />
-    <PackageReference Include="Moq" Version="4.20.72" />
-    <PackageReference Include="NUnit" Version="4.2.2" />
-    <PackageReference Include="xunit.core" Version="2.9.2" />
-	  <PackageReference Include ="Microsoft.CodeAnalysis.Common" Version ="4.12.0"/>
-	  <PackageReference Include ="Microsoft.CodeAnalysis.CSharp" Version ="4.11.0"/>
-  </ItemGroup>
+		<IsPackable>false</IsPackable>
+		<IsTestProject>true</IsTestProject>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\PizzaLab.Data.Models\PizzaLab.Data.Models.csproj" />
-    <ProjectReference Include="..\PizzaLab.Data\PizzaLab.Data.csproj" />
-    <ProjectReference Include="..\PizzaLab.Services.Data\PizzaLab.Services.Data.csproj" />
-    <ProjectReference Include="..\PizzaLab.Web\PizzaLab.Web.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.10" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.0" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+		<PackageReference Include="Moq" Version="4.20.72" />
+		<PackageReference Include="NUnit" Version="4.1.0" />
+		<PackageReference Include="NUnit3TestAdapter" Version="4.1.0" />
+		<PackageReference Include="NUnit.Analyzers" Version="4.1.0" />
+		<PackageReference Include="coverlet.collector" Version="6.0.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\PizzaLab.Data.Models\PizzaLab.Data.Models.csproj" />
+		<ProjectReference Include="..\PizzaLab.Data\PizzaLab.Data.csproj" />
+		<ProjectReference Include="..\PizzaLab.Services.Data.Models\PizzaLab.Services.Data.Models.csproj" />
+		<ProjectReference Include="..\PizzaLab.Services.Data\PizzaLab.Services.Data.csproj" />
+		<ProjectReference Include="..\PizzaLab.Web.ViewModels\PizzaLab.Web.ViewModels.csproj" />
+		<ProjectReference Include="..\PizzaLab.Web\PizzaLab.Web.csproj" />
+	</ItemGroup>
 
 </Project>
+

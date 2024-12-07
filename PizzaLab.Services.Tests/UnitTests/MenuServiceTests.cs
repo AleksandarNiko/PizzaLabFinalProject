@@ -20,6 +20,14 @@ namespace PizzaLab.Services.Tests.UnitTests
 
         private IMenuService menuService;
 
+        [TearDown]
+        public async Task Teardown()
+        {
+            await dbContext.Database.EnsureDeletedAsync();
+            await dbContext.DisposeAsync();
+
+        }
+
         [SetUp]
         public void OneTimeSetUp()
         {
