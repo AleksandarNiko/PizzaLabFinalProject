@@ -1,0 +1,35 @@
+﻿@model PizzaDetailsViewModel
+
+@{
+    ViewData["Title"] = $"{Model.Name} Details";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card mx-75">
+                <img src="@Model.ImageUrl" alt="Pizza Image" style="height: 300px; object-fit: cover;">
+                <div class="card-body">
+                    <h2 class="card-title">@Model.Name</h2>
+                    <p class="card-text">@Model.Description</p>
+                    <h4 class="card-text">Price: $@Model.InitialPrice</h4>
+                    <h4 class="card-text">Dough: @Model.DoughName</h4>
+                    <h4 class="card-text">Products:</h4>
+                    <ul>
+                        @foreach (var product in Model.Products)
+                        {
+                            <li>@product.Name</li>
+                        }
+                    </ul>
+
+                    <div class="d-flex justify-content-between mt-3 p-3">
+                        <a href="@ViewBag.ReturnUrl" class="btn btn-primary w-100">Back</a>                  
+                        <a asp-controller="Pizza" asp-action="OrderPizza" asp-route-pizzaId="@Model.Id" asp-route-returnUrl="@ViewBag.ReturnUrl" class="btn btn-primary w-100 ms-2">Order Pizza</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,97 @@
+﻿@model OrderPizzaViewModel
+
+@{
+    ViewData["Title"] = $"Order {Model.Name}";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+<div class="d-flex justify-content-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card mx-75">
+                    <img src="@Model.ImageUrl" alt="Pizza Image" style="height: 300px; object-fit: cover;">
+                    <div class="card-body d-flex flex-row justify-content-between">
+                        <div class="col-md-6">
+                            <div>
+                                <h2 class="card-title">@Model.Name</h2>
+                                <p class="card-text">@Model.Description</p>
+                                <h4 class="card-text">Dough: @Model.DoughName</h4>
+                                <h4 class="card-text">Products:</h4>
+                                <ul>
+                                    @foreach (var product in Model.Products)
+                                    {
+                                        <li>@product.Name</li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h4 class="mt-4">Toppings:</h4>
+                            <div class="card p-3">
+                                @foreach (var topping in Model.Toppings)
+                                {
+                                    <div class="form-check">
+                                        <input class="form-check-input topping-checkbox" type="checkbox" id="@topping.Id" data-topping-price="@topping.Price" onchange="updateTotalPrice()">
+                                        <label class="form-check-label" for="@topping.Id">
+                                            @topping.Name - $@topping.Price
+                                        </label>
+                                    </div>
+                                }
+                            </div>
+                            <h5 class="mt-3">Total Price: $<span id="totalPrice">@Model.InitialPrice</span></h5>
+                        </div>
+                    </div>
+
+                    <form method="post" asp-controller="Cart" asp-action="AddToCart">
+                        <input type="hidden" name="pizzaId" value="@Model.Id" />
+                        @foreach (var topping in Model.Toppings)
+                        {
+                            <input type="hidden" name="selectedToppingIds" value="@topping.Id" />
+                        }
+
+                        <input type="hidden" id="updatedTotalPrice" name="updatedTotalPrice" />
+
+                        <div class="d-flex justify-content-between">
+                            <a href="@ViewBag.ReturnUrl" class="btn btn-primary w-100">Back</a>
+                            <button type="submit" class="btn btn-success w-100 ms-2">Add to Cart</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function initializePage() {
+        const updatedTotalPriceElement = document.getElementById('updatedTotalPrice');
+        const checkboxes = document.getElementsByClassName('topping-checkbox');
+        const price = document.getElementById('totalPrice').textContent;
+        let totalPrice = parseFloat(updatedTotalPriceElement.value);
+
+        for (const checkbox of checkboxes) {
+            checkbox.checked = false;
+        }
+
+        updatedTotalPriceElement.value = price;
+    }
+
+    window.onload = initializePage;
+
+    function updateTotalPrice() {
+        const updatedTotalPriceElement = document.getElementById('updatedTotalPrice');
+        const checkboxes = document.getElementsByClassName('topping-checkbox');
+        let totalPrice = @Model.InitialPrice;
+
+        for (const checkbox of checkboxes) {
+            if (checkbox.checked) {
+                totalPrice += parseFloat(checkbox.dataset.toppingPrice);
+            }
+        }
+
+        updatedTotalPriceElement.value = totalPrice.toFixed(2);
+        document.getElementById('totalPrice').textContent = totalPrice.toFixed(2);
+    }
+</script>
