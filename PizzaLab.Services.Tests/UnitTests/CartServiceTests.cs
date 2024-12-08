@@ -8,7 +8,7 @@
     using PizzaLab.Data.Models;
 
     using static DatabaseSeeder;
-    using NUnit.Framework.Legacy;
+    using NUnit.Framework;
 
     public class CartServiceTests
     {
@@ -57,15 +57,15 @@
             await cartService.AddPizzaToCartAsync(pizzaForCart.Id, updatedTotalPrice, userId);
 
             var cart = await dbContext.Carts.FirstOrDefaultAsync(c => c.UserId == Guid.Parse(userId));
-            ClassicAssert.NotNull(cart);
-            ClassicAssert.AreEqual(updatedTotalPrice, cart.FinalPrice);
+            Assert.NotNull(cart);
+            Assert.AreEqual(updatedTotalPrice, cart.FinalPrice);
 
             var cartPizza = await dbContext.CartsPizzas.FirstOrDefaultAsync(cp => cp.CartId == cart.Id && cp.PizzaId == pizzaForCart.Id);
-            ClassicAssert.NotNull(cartPizza);
-            ClassicAssert.AreEqual(cart.Id, cartPizza.CartId);
-            ClassicAssert.AreEqual(pizzaForCart.Id, cartPizza.PizzaId);
-            ClassicAssert.AreEqual(Guid.Parse(userId), cartPizza.UserId);
-            ClassicAssert.AreEqual(updatedTotalPrice, cartPizza.UpdatedPrice);
+            Assert.NotNull(cartPizza);
+            Assert.AreEqual(cart.Id, cartPizza.CartId);
+            Assert.AreEqual(pizzaForCart.Id, cartPizza.PizzaId);
+            Assert.AreEqual(Guid.Parse(userId), cartPizza.UserId);
+            Assert.AreEqual(updatedTotalPrice, cartPizza.UpdatedPrice);
         }
 
         [Test]
@@ -103,15 +103,15 @@
 
             var cartItems = await cartService.GetAllCartItemsAsync(userId);
 
-            ClassicAssert.NotNull(cartItems);
-            ClassicAssert.IsTrue(cartItems.Any());
+            Assert.NotNull(cartItems);
+            Assert.IsTrue(cartItems.Any());
 
             var cartItem = cartItems.First();
-            ClassicAssert.AreEqual(Guid.Parse(userId), cartItem.UserId);
-            ClassicAssert.AreEqual(pizza.Id, cartItem.PizzaId);
-            ClassicAssert.AreEqual(cart.Id, cartItem.CartId);
-            ClassicAssert.AreEqual(pizza.Name, cartItem.PizzaName);
-            ClassicAssert.AreEqual(cartPizza.UpdatedPrice, cartItem.Price);
+            Assert.AreEqual(Guid.Parse(userId), cartItem.UserId);
+            Assert.AreEqual(pizza.Id, cartItem.PizzaId);
+            Assert.AreEqual(cart.Id, cartItem.CartId);
+            Assert.AreEqual(pizza.Name, cartItem.PizzaName);
+            Assert.AreEqual(cartPizza.UpdatedPrice, cartItem.Price);
         }
 
         [Test]
@@ -170,7 +170,7 @@
 
             var finalPrice = await cartService.GetFinalPrizeAsync(userId);
 
-            ClassicAssert.AreEqual(pizza1.InitialPrice + pizza2.InitialPrice, finalPrice);
+            Assert.AreEqual(pizza1.InitialPrice + pizza2.InitialPrice, finalPrice);
         }
 
         [Test]
@@ -209,7 +209,7 @@
             await cartService.RemovePizzaFromCartAsync(cart.Id, pizza.Id, userId);
 
             var removedCartPizza = await dbContext.CartsPizzas.FirstOrDefaultAsync(cp => cp.CartId == cart.Id && cp.PizzaId == pizza.Id);
-            ClassicAssert.Null(removedCartPizza);
+            Assert.Null(removedCartPizza);
         }
     }
 }

@@ -9,7 +9,7 @@
     using PizzaLab.Data.Models;
 
     using static DatabaseSeeder;
-    using NUnit.Framework.Legacy;
+    using NUnit.Framework;
 
     public class DoughServiceTests
     {
@@ -49,9 +49,9 @@
             await doughService.AddDoughAsync(new AddDoughViewModel { Name = doughName });
 
             var addedDough = await dbContext.Doughs.FirstOrDefaultAsync(d => d.Name == doughName);
-            ClassicAssert.NotNull(addedDough);
-            ClassicAssert.AreEqual(doughName, addedDough.Name);
-            ClassicAssert.AreEqual(firstCount + 1, dbContext.Doughs.Count());
+           Assert.NotNull(addedDough);
+            Assert.AreEqual(doughName, addedDough.Name);
+            Assert.AreEqual(firstCount + 1, dbContext.Doughs.Count());
         }
 
         [Test]
@@ -66,8 +66,8 @@
             await doughService.DeleteByIdAsync(dough.Id);
 
             var deletedDough = await dbContext.Doughs.FirstOrDefaultAsync(d => d.Id == dough.Id);
-            ClassicAssert.Null(deletedDough);
-            ClassicAssert.AreEqual(firstCount, dbContext.Doughs.Count() + 1);
+            Assert.Null(deletedDough);
+            Assert.AreEqual(firstCount, dbContext.Doughs.Count() + 1);
         }
 
         [Test]
@@ -85,14 +85,14 @@
 
             var result = await doughService.GetAllDoughsAsync();
 
-            ClassicAssert.NotNull(result);
-            ClassicAssert.AreEqual(doughs.Count, result.Count());
+            Assert.NotNull(result);
+            Assert.AreEqual(doughs.Count, result.Count());
 
             foreach (var dough in doughs)
             {
                 var viewModel = result.FirstOrDefault(d => d.Id == dough.Id);
-                ClassicAssert.NotNull(viewModel);
-                ClassicAssert.AreEqual(dough.Name, viewModel.Name);
+                Assert.NotNull(viewModel);
+                Assert.AreEqual(dough.Name, viewModel.Name);
             }
         }
 
@@ -104,8 +104,8 @@
 
             var result = await doughService.GetAllDoughsAsync();
 
-            ClassicAssert.NotNull(result);
-            ClassicAssert.IsEmpty(result);
+            Assert.NotNull(result);
+            Assert.IsEmpty(result);
         }
 
         [Test]
@@ -121,9 +121,9 @@
             var doughId = newDough.Id;
             var result = await doughService.GetDoughByIdAsync(doughId);
 
-            ClassicAssert.NotNull(result);
-            ClassicAssert.AreEqual(doughId, result.Id);
-            ClassicAssert.AreEqual(newDough.Name, result.Name);
+            Assert.NotNull(result);
+            Assert.AreEqual(doughId, result.Id);
+            Assert.AreEqual(newDough.Name, result.Name);
         }
     }
 }

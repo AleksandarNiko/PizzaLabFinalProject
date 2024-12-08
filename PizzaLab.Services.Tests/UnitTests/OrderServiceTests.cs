@@ -6,7 +6,7 @@
     using PizzaLab.Services.Data;
 
     using static DatabaseSeeder;
-    using NUnit.Framework.Legacy;
+    using NUnit.Framework;
 
     public class OrderServiceTests
     {
@@ -50,8 +50,8 @@
             var order = await dbContext
                 .Orders
                 .FirstOrDefaultAsync();
-            ClassicAssert.NotNull(order);
-            ClassicAssert.AreEqual(14.99M, order.Price);
+            Assert.NotNull(order);
+            Assert.AreEqual(14.99M, order.Price);
         }
 
         [Test]
@@ -65,7 +65,7 @@
             var cartsCount = await dbContext
                 .Carts
                 .CountAsync(c => c.UserId == Guid.Parse(userId));
-            ClassicAssert.AreEqual(0, cartsCount);
+            Assert.AreEqual(0, cartsCount);
         }
 
         [Test]
@@ -79,7 +79,7 @@
             var cartPizzasCount = await dbContext
                 .CartsPizzas
                 .CountAsync(cp => cp.UserId == Guid.Parse(userId));
-            ClassicAssert.AreEqual(0, cartPizzasCount);
+            Assert.AreEqual(0, cartPizzasCount);
         }
     }
 }

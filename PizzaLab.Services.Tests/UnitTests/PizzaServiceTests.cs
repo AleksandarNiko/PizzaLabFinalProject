@@ -1,7 +1,7 @@
 ﻿namespace PizzaLab.Services.Tests.UnitTests
 {
     using Microsoft.EntityFrameworkCore;
-    using NUnit.Framework.Legacy;
+    using NUnit.Framework;
     using PizzaLab.Data;
     using PizzaLab.Data.Models;
     using PizzaLab.Services.Data;
@@ -59,13 +59,13 @@
             await pizzaService.AddPizzaAsync(model);
 
             var addedPizza = await dbContext.Pizzas.FirstOrDefaultAsync(p => p.Name == "Test Pizza");
-            ClassicAssert.NotNull(addedPizza);
-            ClassicAssert.AreEqual(model.InitialPrice, addedPizza.InitialPrice);
-            ClassicAssert.AreEqual(model.ImageUrl, addedPizza.ImageUrl);
-            ClassicAssert.AreEqual(model.Description, addedPizza.Description);
+            Assert.NotNull(addedPizza);
+            Assert.AreEqual(model.InitialPrice, addedPizza.InitialPrice);
+            Assert.AreEqual(model.ImageUrl, addedPizza.ImageUrl);
+            Assert.AreEqual(model.Description, addedPizza.Description);
 
             var pizzaProduct = await dbContext.PizzasProducts.FirstOrDefaultAsync(pp => pp.PizzaId == addedPizza.Id);
-            ClassicAssert.NotNull(pizzaProduct);
+            Assert.NotNull(pizzaProduct);
         }
 
         [Test]
@@ -76,14 +76,14 @@
 
             var pizzas = await pizzaService.GetAllPizzasAsync();
 
-            ClassicAssert.NotNull(pizzas);
-            ClassicAssert.IsTrue(pizzas.Any());
+            Assert.NotNull(pizzas);
+            Assert.IsTrue(pizzas.Any());
 
             foreach (var pizza in pizzas)
             {
-                ClassicAssert.NotNull(pizza);
-                ClassicAssert.NotNull(pizza.Products);
-                ClassicAssert.NotNull(pizza.DoughName);
+                Assert.NotNull(pizza);
+                Assert.NotNull(pizza.Products);
+                Assert.NotNull(pizza.DoughName);
             }
         }
 
@@ -94,12 +94,12 @@
 
             var pizzaDetails = await pizzaService.GetPizzaByIdAsync(pizzaId);
 
-            ClassicAssert.NotNull(pizzaDetails);
-            ClassicAssert.AreEqual(pizzaId, pizzaDetails.Id);
-            ClassicAssert.AreEqual(PizzaTest.Name, pizzaDetails.Name);
-            ClassicAssert.AreEqual(PizzaTest.InitialPrice, pizzaDetails.InitialPrice);
-            ClassicAssert.AreEqual(PizzaTest.ImageUrl, pizzaDetails.ImageUrl);
-            ClassicAssert.AreEqual(PizzaTest.Description, pizzaDetails.Description);
+            Assert.NotNull(pizzaDetails);
+            Assert.AreEqual(pizzaId, pizzaDetails.Id);
+            Assert.AreEqual(PizzaTest.Name, pizzaDetails.Name);
+            Assert.AreEqual(PizzaTest.InitialPrice, pizzaDetails.InitialPrice);
+            Assert.AreEqual(PizzaTest.ImageUrl, pizzaDetails.ImageUrl);
+            Assert.AreEqual(PizzaTest.Description, pizzaDetails.Description);
         }
 
         [Test]
@@ -109,13 +109,13 @@
 
             var editPizzaViewModel = await pizzaService.GetPizzaForEditAsync(pizzaToEdit.Id);
 
-            ClassicAssert.NotNull(editPizzaViewModel);
-            ClassicAssert.AreEqual(pizzaToEdit.Id, editPizzaViewModel.Id);
-            ClassicAssert.AreEqual(pizzaToEdit.Name, editPizzaViewModel.Name);
-            ClassicAssert.AreEqual(pizzaToEdit.InitialPrice, editPizzaViewModel.InitialPrice);
-            ClassicAssert.AreEqual(pizzaToEdit.ImageUrl, editPizzaViewModel.ImageUrl);
-            ClassicAssert.AreEqual(pizzaToEdit.Description, editPizzaViewModel.Description);
-            ClassicAssert.AreEqual(pizzaToEdit.DoughId, editPizzaViewModel.DoughId);
+            Assert.NotNull(editPizzaViewModel);
+            Assert.AreEqual(pizzaToEdit.Id, editPizzaViewModel.Id);
+            Assert.AreEqual(pizzaToEdit.Name, editPizzaViewModel.Name);
+            Assert.AreEqual(pizzaToEdit.InitialPrice, editPizzaViewModel.InitialPrice);
+            Assert.AreEqual(pizzaToEdit.ImageUrl, editPizzaViewModel.ImageUrl);
+            Assert.AreEqual(pizzaToEdit.Description, editPizzaViewModel.Description);
+            Assert.AreEqual(pizzaToEdit.DoughId, editPizzaViewModel.DoughId);
         }
 
         [Test]
@@ -129,14 +129,14 @@
 
             var pizzasForMenu = await pizzaService.GetPizzasByMenuIdAsync(menu.Id);
 
-            ClassicAssert.NotNull(pizzasForMenu);
-            ClassicAssert.IsTrue(pizzasForMenu.Any());
+            Assert.NotNull(pizzasForMenu);
+            Assert.IsTrue(pizzasForMenu.Any());
 
             foreach (var pizzaViewModel in pizzasForMenu)
             {
-                ClassicAssert.NotNull(pizzaViewModel);
-                ClassicAssert.NotNull(pizzaViewModel.Products);
-                ClassicAssert.NotNull(pizzaViewModel.DoughName);
+                Assert.NotNull(pizzaViewModel);
+                Assert.NotNull(pizzaViewModel.Products);
+                Assert.NotNull(pizzaViewModel.DoughName);
             }
         }
 
@@ -174,13 +174,13 @@
             var editedPizza = await dbContext.Pizzas.FindAsync(initialPizza.Id);
             var editedPizzaProductsCount = await dbContext.PizzasProducts.CountAsync(pp => pp.PizzaId == initialPizza.Id);
 
-            ClassicAssert.NotNull(editedPizza);
-            ClassicAssert.AreEqual(editedPizzaName, editedPizza.Name);
-            ClassicAssert.AreEqual(12.99M, editedPizza.InitialPrice);
-            ClassicAssert.AreEqual("edited-image-url", editedPizza.ImageUrl);
-            ClassicAssert.AreEqual("Edited description", editedPizza.Description);
-            ClassicAssert.AreEqual(editedDoughId, editedPizza.DoughId);
-            ClassicAssert.AreEqual(1, editedPizzaProductsCount);
+            Assert.NotNull(editedPizza);
+            Assert.AreEqual(editedPizzaName, editedPizza.Name);
+            Assert.AreEqual(12.99M, editedPizza.InitialPrice);
+            Assert.AreEqual("edited-image-url", editedPizza.ImageUrl);
+            Assert.AreEqual("Edited description", editedPizza.Description);
+            Assert.AreEqual(editedDoughId, editedPizza.DoughId);
+            Assert.AreEqual(1, editedPizzaProductsCount);
         }
 
         [Test]
@@ -204,11 +204,11 @@
 
             var deleteViewModel = await pizzaService.GetPizzaForDeleteAsync(pizzaToDelete.Id);
 
-            ClassicAssert.NotNull(deleteViewModel);
-            ClassicAssert.AreEqual(pizzaToDeleteName, deleteViewModel.Name);
-            ClassicAssert.AreEqual(pizzaToDeleteInitialPrice, deleteViewModel.InitialPrice);
-            ClassicAssert.AreEqual(pizzaToDeleteImageUrl, deleteViewModel.ImageUrl);
-            ClassicAssert.AreEqual(pizzaToDeleteDescription, deleteViewModel.Description);
+            Assert.NotNull(deleteViewModel);
+            Assert.AreEqual(pizzaToDeleteName, deleteViewModel.Name);
+            Assert.AreEqual(pizzaToDeleteInitialPrice, deleteViewModel.InitialPrice);
+            Assert.AreEqual(pizzaToDeleteImageUrl, deleteViewModel.ImageUrl);
+            Assert.AreEqual(pizzaToDeleteDescription, deleteViewModel.Description);
         }
 
         [Test]
@@ -231,7 +231,7 @@
 
             var remainingPizzas = dbContext.Pizzas.Count();
 
-            ClassicAssert.AreEqual(initialPizzaCount - 1, remainingPizzas);
+            Assert.AreEqual(initialPizzaCount - 1, remainingPizzas);
         }
 
     }

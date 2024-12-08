@@ -11,7 +11,7 @@ namespace PizzaLab.Services.Tests.UnitTests
     using PizzaLab.Data.Models;
 
     using static DatabaseSeeder;
-    using NUnit.Framework.Legacy;
+    using NUnit.Framework;
 
     public class MenuServiceTests
     {
@@ -49,7 +49,7 @@ namespace PizzaLab.Services.Tests.UnitTests
 
             bool result = await menuService.ExistsByIdAsync(existingMenuId);
 
-            ClassicAssert.IsTrue(result);
+            Assert.IsTrue(result);
         }
 
         [Test]
@@ -59,7 +59,7 @@ namespace PizzaLab.Services.Tests.UnitTests
 
             bool result = await menuService.ExistsByIdAsync(int.MaxValue);
 
-            ClassicAssert.IsFalse(result);
+            Assert.IsFalse(result);
         }
 
         [Test]
@@ -74,9 +74,9 @@ namespace PizzaLab.Services.Tests.UnitTests
             await menuService.AddMenuAsync(model);
 
             var addedMenu = await dbContext.Menus.FirstOrDefaultAsync(m => m.Name == model.Name);
-            ClassicAssert.NotNull(addedMenu);
-            ClassicAssert.AreEqual(model.Name, addedMenu.Name);
-            ClassicAssert.AreEqual(model.Description, addedMenu.Description);
+            Assert.NotNull(addedMenu);
+            Assert.AreEqual(model.Name, addedMenu.Name);
+            Assert.AreEqual(model.Description, addedMenu.Description);
         }
 
         [Test]
@@ -86,7 +86,7 @@ namespace PizzaLab.Services.Tests.UnitTests
 
             await menuService.DeleteByIdAsync(existingMenuId);
 
-            ClassicAssert.IsFalse(await dbContext.Menus.AnyAsync(m => m.Id == existingMenuId));
+            Assert.IsFalse(await dbContext.Menus.AnyAsync(m => m.Id == existingMenuId));
         }
 
         [Test]
@@ -98,7 +98,7 @@ namespace PizzaLab.Services.Tests.UnitTests
             await menuService.DeleteByIdAsync(nonExistingMenuId);
 
             var remainingMenus = await dbContext.Menus.CountAsync();
-            ClassicAssert.AreEqual(initialMenuCount, remainingMenus);
+            Assert.AreEqual(initialMenuCount, remainingMenus);
         }
 
         [Test]
@@ -115,9 +115,9 @@ namespace PizzaLab.Services.Tests.UnitTests
 
 
             Menu? editedMenu = await dbContext.Menus.FirstOrDefaultAsync(m => m.Id == existingMenuId);
-            ClassicAssert.NotNull(editedMenu);
-            ClassicAssert.AreEqual(editModel.Name, editedMenu.Name);
-            ClassicAssert.AreEqual(editModel.Description, editedMenu.Description);
+            Assert.NotNull(editedMenu);
+            Assert.AreEqual(editModel.Name, editedMenu.Name);
+            Assert.AreEqual(editModel.Description, editedMenu.Description);
         }
 
         [Test]
@@ -139,14 +139,14 @@ namespace PizzaLab.Services.Tests.UnitTests
 
             var result = await menuService.GetAllMenusAsync();
 
-            ClassicAssert.AreEqual(expectedMenus.Count, result.Count());
+            Assert.AreEqual(expectedMenus.Count, result.Count());
 
             foreach (var expectedMenu in expectedMenus)
             {
                 var actualMenu = result.FirstOrDefault(m => m.Id == expectedMenu.Id);
-                ClassicAssert.NotNull(actualMenu);
-                ClassicAssert.AreEqual(expectedMenu.Name, actualMenu.Name);
-                ClassicAssert.AreEqual(expectedMenu.Description, actualMenu.Description);
+                Assert.NotNull(actualMenu);
+                Assert.AreEqual(expectedMenu.Name, actualMenu.Name);
+                Assert.AreEqual(expectedMenu.Description, actualMenu.Description);
             }
         }
 
@@ -164,16 +164,16 @@ namespace PizzaLab.Services.Tests.UnitTests
 
             var result = await menuService.GetAllPizzasByMenuIdAsync(menu.Id);
 
-            ClassicAssert.AreEqual(pizzasForMenu.Count(), result.Count());
+            Assert.AreEqual(pizzasForMenu.Count(), result.Count());
 
             foreach (var expectedPizza in pizzasForMenu)
             {
                 var actualPizza = result.FirstOrDefault(p => p.Id == expectedPizza.Id);
-                ClassicAssert.NotNull(actualPizza);
-                ClassicAssert.AreEqual(expectedPizza.Name, actualPizza.Name);
-                ClassicAssert.AreEqual(expectedPizza.InitialPrice, actualPizza.InitialPrice);
-                ClassicAssert.AreEqual(expectedPizza.ImageUrl, actualPizza.ImageUrl);
-                ClassicAssert.AreEqual(expectedPizza.Description, actualPizza.Description);
+                Assert.NotNull(actualPizza);
+                Assert.AreEqual(expectedPizza.Name, actualPizza.Name);
+                Assert.AreEqual(expectedPizza.InitialPrice, actualPizza.InitialPrice);
+                Assert.AreEqual(expectedPizza.ImageUrl, actualPizza.ImageUrl);
+                Assert.AreEqual(expectedPizza.Description, actualPizza.Description);
             }
         }
 
@@ -186,9 +186,9 @@ namespace PizzaLab.Services.Tests.UnitTests
 
             var deleteMenuViewModel = await menuService.GetMenuForDeleteAsync(menuId);
 
-            ClassicAssert.NotNull(deleteMenuViewModel);
-            ClassicAssert.AreEqual("Test menu", deleteMenuViewModel.Name);
-            ClassicAssert.AreEqual("Testing menu description", deleteMenuViewModel.Description);
+            Assert.NotNull(deleteMenuViewModel);
+            Assert.AreEqual("Test menu", deleteMenuViewModel.Name);
+            Assert.AreEqual("Testing menu description", deleteMenuViewModel.Description);
 
         }
 
@@ -199,12 +199,12 @@ namespace PizzaLab.Services.Tests.UnitTests
 
             var editMenuViewModel = await menuService.GetMenuForEditAsync(menuId);
 
-            ClassicAssert.NotNull(editMenuViewModel);
-            ClassicAssert.AreEqual("Test menu", editMenuViewModel.Name);
-            ClassicAssert.AreEqual("Testing menu description", editMenuViewModel.Description);
+            Assert.NotNull(editMenuViewModel);
+            Assert.AreEqual("Test menu", editMenuViewModel.Name);
+            Assert.AreEqual("Testing menu description", editMenuViewModel.Description);
 
             var menuPizzas = await menuService.GetAllPizzasByMenuIdAsync(menuId);
-            ClassicAssert.AreEqual(menuPizzas.Count(), editMenuViewModel.MenuPizzas.Count());
+            Assert.AreEqual(menuPizzas.Count(), editMenuViewModel.MenuPizzas.Count());
         }
 
         [Test]
@@ -225,8 +225,8 @@ namespace PizzaLab.Services.Tests.UnitTests
                     .Include(m => m.MenusPizzas)
                     .FirstOrDefaultAsync(m => m.Id == menuId);
 
-                ClassicAssert.NotNull(updatedMenu);
-                ClassicAssert.IsFalse(updatedMenu.MenusPizzas.Any(mp => mp.PizzaId == pizzaId));
+                Assert.NotNull(updatedMenu);
+                Assert.IsFalse(updatedMenu.MenusPizzas.Any(mp => mp.PizzaId == pizzaId));
             }
         }
 
@@ -238,7 +238,7 @@ namespace PizzaLab.Services.Tests.UnitTests
 
             var result = await menuService.AddPizzaToMenuAsync(menuId, pizzaId);
 
-            ClassicAssert.IsTrue(result);
+            Assert.IsTrue(result);
 
             using (var dbContext = new PizzaLabDbContext(dbOptions))
             {
@@ -246,8 +246,8 @@ namespace PizzaLab.Services.Tests.UnitTests
                     .Include(m => m.MenusPizzas)
                     .FirstOrDefaultAsync(m => m.Id == menuId);
 
-                ClassicAssert.NotNull(updatedMenu);
-                ClassicAssert.IsTrue(updatedMenu.MenusPizzas.Any(mp => mp.PizzaId == pizzaId));
+                Assert.NotNull(updatedMenu);
+                Assert.IsTrue(updatedMenu.MenusPizzas.Any(mp => mp.PizzaId == pizzaId));
             }
         }
 
@@ -259,11 +259,11 @@ namespace PizzaLab.Services.Tests.UnitTests
 
             var result = await menuService.GetRemovePizzaView(menuId, pizzaId);
 
-            ClassicAssert.NotNull(result);
-            ClassicAssert.AreEqual(menuId, result.MenuId);
-            ClassicAssert.AreEqual(pizzaId, result.PizzaId);
-            ClassicAssert.AreEqual(MenuTest.Name, result.MenuName);
-            ClassicAssert.AreEqual(PizzaTest.Name, result.PizzaName);
+            Assert.NotNull(result);
+            Assert.AreEqual(menuId, result.MenuId);
+            Assert.AreEqual(pizzaId, result.PizzaId);
+            Assert.AreEqual(MenuTest.Name, result.MenuName);
+            Assert.AreEqual(PizzaTest.Name, result.PizzaName);
         }
 
         [Test]
@@ -271,9 +271,9 @@ namespace PizzaLab.Services.Tests.UnitTests
         {
             var result = await menuService.GetStatisticsAsync();
 
-            ClassicAssert.NotNull(result);
-            ClassicAssert.AreEqual(await dbContext.Pizzas.CountAsync(), result.TotalPizzas);
-            ClassicAssert.AreEqual(await dbContext.Menus.CountAsync(), result.TotalMenus);
+            Assert.NotNull(result);
+            Assert.AreEqual(await dbContext.Pizzas.CountAsync(), result.TotalPizzas);
+            Assert.AreEqual(await dbContext.Menus.CountAsync(), result.TotalMenus);
         }
 
     }

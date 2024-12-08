@@ -11,7 +11,7 @@
     using PizzaLab.Data.Models;
 
     using static DatabaseSeeder;
-    using NUnit.Framework.Legacy;
+    using NUnit.Framework;
 
     public class ToppingServiceTests
     {
@@ -54,7 +54,7 @@
             await toppingService.AddToppingAsync(model);
             var newCount = await dbContext.Toppings.CountAsync();
 
-            ClassicAssert.AreEqual(initialCount + 1, newCount);
+            Assert.AreEqual(initialCount + 1, newCount);
         }
 
         [Test]
@@ -72,7 +72,7 @@
             await toppingService.DeleteByIdAsync(topping.Id);
             var newCount = await dbContext.Toppings.CountAsync();
 
-            ClassicAssert.AreEqual(initialCount - 1, newCount);
+            Assert.AreEqual(initialCount - 1, newCount);
         }
 
 
@@ -85,9 +85,9 @@
 
             var retrievedTopping = await toppingService.GetToppingByIdAsync(topping.Id);
 
-            ClassicAssert.NotNull(retrievedTopping);
-            ClassicAssert.AreEqual(topping.Name, retrievedTopping.Name);
-            ClassicAssert.AreEqual(topping.Price, retrievedTopping.Price);
+            Assert.NotNull(retrievedTopping);
+            Assert.AreEqual(topping.Name, retrievedTopping.Name);
+            Assert.AreEqual(topping.Price, retrievedTopping.Price);
         }
 
     }
