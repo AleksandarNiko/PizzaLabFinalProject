@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -7,12 +7,30 @@
     <UserSecretsId>aspnet-PizzaLab.Web-b5c03e74-598e-4436-bd39-dd8813efda7b</UserSecretsId>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.8" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.8" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.8" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.8" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.8" />
-  </ItemGroup>
+	<ItemGroup>
+		<Content Remove="appsettings.Production.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="appsettings.Production.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.8" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.8" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.8" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.8" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.8" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\PizzaLab.Common\PizzaLab.Common.csproj" />
+		<ProjectReference Include="..\PizzaLab.Data.Models\PizzaLab.Data.Models.csproj" />
+		<ProjectReference Include="..\PizzaLab.Data\PizzaLab.Data.csproj" />
+		<ProjectReference Include="..\PizzaLab.Services.Data.Models\PizzaLab.Services.Data.Models.csproj" />
+		<ProjectReference Include="..\PizzaLab.Services.Data\PizzaLab.Services.Data.csproj" />
+		<ProjectReference Include="..\PizzaLab.Web.Infrastructure\PizzaLab.Web.Infrastructure.csproj" />
+		<ProjectReference Include="..\PizzaLab.Web.ViewModels\PizzaLab.Web.ViewModels.csproj" />
+	</ItemGroup>
 
 </Project>
