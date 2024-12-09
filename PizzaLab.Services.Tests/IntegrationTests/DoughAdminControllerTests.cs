@@ -3,7 +3,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Moq;
-    using NUnit.Framework.Legacy;
+    using NUnit.Framework;
     using PizzaLab.Data;
     using PizzaLab.Services.Data.Interfaces;
     using PizzaLab.Web.Areas.Admin.Controllers;
@@ -35,8 +35,8 @@
 
             var result = await doughController.Add(model) as RedirectToActionResult;
 
-            ClassicAssert.That(result, Is.Not.Null);
-            ClassicAssert.That(result.ActionName, Is.EqualTo(nameof(DoughController.Options)));
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.ActionName, Is.EqualTo(nameof(DoughController.Options)));
         }
 
         [Test]
@@ -57,13 +57,13 @@
 
             var result = await doughController.Remove() as ViewResult;
 
-            ClassicAssert.That(result, Is.Not.Null);
-            ClassicAssert.That(result.Model, Is.TypeOf<List<DoughViewModel>>());
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Model, Is.TypeOf<List<DoughViewModel>>());
 
             var model = result.Model as List<DoughViewModel>;
-            ClassicAssert.That(model, Has.Count.EqualTo(2));
-            ClassicAssert.That(model[0].Name, Is.EqualTo("Dough 1"));
-            ClassicAssert.That(model[1].Name, Is.EqualTo("Dough 2"));
+            Assert.That(model, Has.Count.EqualTo(2));
+            Assert.That(model[0].Name, Is.EqualTo("Dough 1"));
+            Assert.That(model[1].Name, Is.EqualTo("Dough 2"));
         }
 
         [Test]
@@ -79,12 +79,12 @@
 
             var result = await doughController.RemoveDough(doughId) as ViewResult;
 
-            ClassicAssert.That(result, Is.Not.Null);
-            ClassicAssert.That(result.Model, Is.TypeOf<DoughViewModel>());
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Model, Is.TypeOf<DoughViewModel>());
 
             var model = result.Model as DoughViewModel;
-            ClassicAssert.That(model.Id, Is.EqualTo(doughId));
-            ClassicAssert.That(model.Name, Is.EqualTo("Test Dough"));
+            Assert.That(model.Id, Is.EqualTo(doughId));
+            Assert.That(model.Name, Is.EqualTo("Test Dough"));
         }
 
         [Test]
@@ -93,9 +93,9 @@
 
             var result = await doughController.RemoveDough(123) as RedirectToActionResult;
 
-            ClassicAssert.NotNull(result);
-            ClassicAssert.AreEqual("Error404", result.ActionName);
-            ClassicAssert.AreEqual("Home", result.ControllerName);
+            Assert.NotNull(result);
+            Assert.AreEqual("Error404", result.ActionName);
+            Assert.AreEqual("Home", result.ControllerName);
         }
     }
 

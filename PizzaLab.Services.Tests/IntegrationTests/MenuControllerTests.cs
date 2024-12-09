@@ -3,7 +3,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Moq;
-    using NUnit.Framework.Legacy;
+    using NUnit.Framework;
     using PizzaLab.Data;
     using PizzaLab.Services.Data.Interfaces;
     using PizzaLab.Web.Controllers;
@@ -41,8 +41,8 @@
 
             var result = await controller.All() as ViewResult;
 
-            ClassicAssert.NotNull(result);
-            ClassicAssert.AreEqual(typeof(List<MenuViewModel>), result.Model.GetType());
+            Assert.NotNull(result);
+            Assert.AreEqual(typeof(List<MenuViewModel>), result.Model.GetType());
         }
         [Test]
         public async Task Pizzas_ReturnsViewWithPizzas()
@@ -55,8 +55,8 @@
             var result = await controller.Pizzas(1) as ViewResult;
 
             // Assert
-            ClassicAssert.NotNull(result);
-            ClassicAssert.AreEqual(typeof(List<PizzasForMenuViewModel>), result.Model.GetType());
+            Assert.NotNull(result);
+            Assert.AreEqual(typeof(List<PizzasForMenuViewModel>), result.Model.GetType());
         }
     }
 }
