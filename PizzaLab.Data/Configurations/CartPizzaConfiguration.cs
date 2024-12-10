@@ -1,14 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PizzaLab.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace PizzaLab.Data.Configurations
 {
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+    using PizzaLab.Data.Models;
     public class CartPizzaConfiguration : IEntityTypeConfiguration<CartPizza>
     {
         public void Configure(EntityTypeBuilder<CartPizza> builder)
