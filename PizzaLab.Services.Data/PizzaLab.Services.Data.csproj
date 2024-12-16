@@ -7,6 +7,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.39" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\PizzaLab.Common\PizzaLab.Common.csproj" />
 		<ProjectReference Include="..\PizzaLab.Data.Models\PizzaLab.Data.Models.csproj" />
 		<ProjectReference Include="..\PizzaLab.Data\PizzaLab.Data.csproj" />

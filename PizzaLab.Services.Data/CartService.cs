@@ -20,6 +20,7 @@
         }
         public async Task AddPizzaToCartAsync(int pizzaId, decimal updatedTotalPrice, string userId)
         {
+
             Cart cart = new Cart()
             {
                 UserId = Guid.Parse(userId),
@@ -46,7 +47,6 @@
                 await dbContext.CartsPizzas.AddAsync(cartPizza);
                 await dbContext.SaveChangesAsync();
             }
-
         }
 
         public async Task<List<CartItemViewModel>> GetAllCartItemsAsync(string userId)
